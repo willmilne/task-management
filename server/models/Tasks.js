@@ -1,6 +1,8 @@
 // tasks is the class that stores all tasks, and acts as the intermediary between the frontend and each individual task.
 // tasks has a primary dictionary of all tasks, indexed by id.  
 
+let { Task } = require('./Task');
+
 module.exports.Tasks = class Tasks {
     constructor(){
         this.list = {};

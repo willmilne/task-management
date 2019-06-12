@@ -10,6 +10,10 @@ var port = process.env.PORT || 8080;
 console.log('creating tasks');
 let tasks = new Tasks();
 
+app.use(bodyParser.urlencoded({
+    extended:true
+}));
+
 require('./routes.js')(app, tasks);
 
 app.listen(port);

@@ -10,7 +10,7 @@ module.exports.Task = class Task {
         this.name = _name;
         this.description = _description;
         this.due = _due;
-        this.created = new Date.now();
+        this.created = new Date();
         this.modified = this.created;
         this.completed = false;
     };

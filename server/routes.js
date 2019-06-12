@@ -13,6 +13,7 @@ module.exports = (app, tasks) => {
     });
 
     app.post('/tasks', (req, res) => {
+        console.log(req.body);
         tasks.addTask(req.body.name, req.body.description, Date.parse(req.body.due));
         res.json(tasks);
     });
