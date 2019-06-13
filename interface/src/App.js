@@ -4,21 +4,11 @@ import './App.css';
 import TaskPage from './components/TaskPage'
 import TaskListPage from './components/TaskListPage'
 
-function App() {
-  let tempTask = {
-    title: 'name!',
-    description: 'description!',
-    due: '6/13/2019'
-  }
+// decided to hardcode the server address for now
+// in future iterations I would put it in 
 
-  let tasks = {
-    0: tempTask,
-    1: {
-      title: 'name2', 
-      description: 'another name',
-      due: '7/7/2019'
-    }
-  }
+function App() {
+  
   return (
     <div className="Task-Manager">
       <TaskListPage taskList={tasks}></TaskListPage>

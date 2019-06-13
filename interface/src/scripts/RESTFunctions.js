@@ -1,5 +1,6 @@
 const $ = require('jquery');
 
+// TODO: Make this configurable
 let serverUrl = 'http://localhost:/4000/;'
 
 const handleResponse = (_error, _callbacks) => {
