@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap'
 import moment from 'moment';
 
 class TaskListPage extends React.Component {
+    constructor(props){
+        super(props);
+    }
+
     render() {
         const taskList = this.props.taskList;
 
@@ -13,7 +17,7 @@ class TaskListPage extends React.Component {
                 <Button>Filter Tasks</Button>
                 {
                     Object.keys(taskList).map((key) => (
-                        <TaskListView key={key} task={this.props.taskList[key]}></TaskListView>
+                        <TaskListView onClick={() => this.props.clickedTask(key)} key={key} task={this.props.taskList[key]}></TaskListView>
                     ))
                 }
             </div>
@@ -33,21 +37,25 @@ class TaskListView extends React.Component {
         const task = this.props.task;
         const title = task.name;
         let description = task.description;
-        if(description.length > 42){
-            description = description.substring(0, 42) + '...';
+        if(description.length > 150){
+            description = description.substring(0, 150) + '...';
         }
         const due = task.due;
         const completed = task.completed;
 
         return <Container style={containerStyle}>
             <Row>
-                <Col><TaskStatusButtons completed={completed}></TaskStatusButtons></Col>
+                {/*<Col><TaskStatusButtons completed={completed}></TaskStatusButtons></Col>
+                */}
                 <Col>{title}</Col>
-                <Col>{description}</Col>
+                <Col xs='6'>{description}</Col>
                 <Col>{due}</Col>
                 <Col>
                     <TaskStatus completed={completed} due={due}/>
                 </Col>
+                {/*<Col>
+                    <Button>Remove</Button>
+                </Col>*/}
             </Row>
         </Container>
     }
@@ -59,7 +67,6 @@ class TaskStatusButtons extends React.Component {
 
         return <div>
                 <Button>Complete</Button>
-                <Button>Remove</Button>
             </div>
     }
 }
@@ -69,7 +76,7 @@ class TaskStatus extends React.Component {
         const completed = this.props.completed;
         const due = this.props.due;
         
-        let d1 = moment();
+        let d1 = moment('M/D/YYYY');
         let d2 = moment(due).format('M/D/YYYY');
 
         let overdue = moment(d2).isBefore(d1);
