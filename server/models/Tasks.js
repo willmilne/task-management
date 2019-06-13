@@ -5,55 +5,80 @@ let { Task } = require('./Task');
 let dateHelper = require('./../utilities/dateHelper');
 
 module.exports.Tasks = class Tasks {
-    constructor(){
+    constructor() {
         this.list = {};
+        this.nextId = 0;
     }
 
-    addTask(_task){
-        let id = Object.keys(this.list).length; // using the length of the list would give us a unique id if tasks couldnt be removed.  Since they can, we need to do something else.
+    addTask(_task) {
+        let id = this.nextId; // using the length of the list would give us a unique id if tasks couldnt be removed.  Since they can, we need to do something else.
         _task.id = id;
         this.list[id] = _task;
+        this.nextId++;
     }
 
-    getTask(_id){
+    getTask(_id) {
         let task = this.list[_id];
         return task;
     }
 
-    getTasks(_filterType, _today){
+    getTasks(_filterType, _today) {
         let result = {};
         let tasks = this.list;
-        switch(_filterType){
+        let tomorrow = dateHelper.getNextDay(_today);
+        switch (_filterType) {
             // get tasks due today
             case 0:
-                for(var task in tasks){
-                    if(task.due === _today){
+                for (var key in tasks) {
+                    var task = tasks[key];
+                    if (task.due === _today) {
                         result[task.id] = task;
                     }
                 }
                 return result;
             // get tasks due tomorrow
             case 1:
-                
-                for(var task in tasks){
-
+                for (var key in tasks) {
+                    var task = tasks[key];
+                    if (task.due === tomorrow) {
+                        result[task.id] = task;
+                    }
                 }
+                return result;
             // get tasks due today and tomorrow
             case 2:
-                break;
+                for (var key in tasks) {
+                    var task = tasks[key];
+                    if (task.due === _today || task.due === tomorrow) {
+                        result[task.id] = task;
+                    }
+                }
+                return result;
             // get tasks that are overdue
-            case 3: 
-                break;
+            case 3:
+                for (var key in tasks) {
+                    var task = tasks[key];
+                    if (dateHelper.isBefore(task.due, _today) && !task.completed) {
+                        result[task.id] = task;
+                    }
+                }
+                return result;
             // get tasks that are completed
             case 4:
-                break;
+                for (var key in tasks) {
+                    var task = tasks[key];
+                    if (task.completed) {
+                        result[task.id] = task;
+                    }
+                }
+                return result;
             default:
                 return this.list;
         }
     }
 
-    removeTask(_id){
-        if(this.list[_id]){
+    removeTask(_id) {
+        if (this.list[_id]) {
             delete this.list[_id];
             return true;
         }

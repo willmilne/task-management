@@ -75,6 +75,7 @@ describe('tasks tests', () => {
         task8.completed = true;
 
         let tasks = new Tasks();
+        tasks.addTask(task0);
         tasks.addTask(task1);
         tasks.addTask(task2);
         tasks.addTask(task3);
