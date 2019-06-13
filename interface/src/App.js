@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="Task-Manager">
       <TaskListPage taskList={tasks}></TaskListPage>
-      <TaskPage task={tempTask}></TaskPage>
+      {/*<TaskPage task={tempTask}></TaskPage>*/}
     </div>
   );
 }

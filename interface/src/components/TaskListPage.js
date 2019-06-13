@@ -9,6 +9,7 @@ class TaskListPage extends React.Component {
             <div>
                 Task List
                 <Button>Add Task</Button>
+                <Button>Filter Tasks</Button>
                 {
                     Object.keys(taskList).map((key, index) => (
                         <TaskListView task={taskList[key]}></TaskListView>
@@ -23,7 +24,7 @@ class TaskListView extends React.Component {
     render(){
         const task = this.props.task;
 
-        return <b>{task.title}</b>
+        return <b>{task.title} {task.description} {task.due}</b>
     }
 }
 
