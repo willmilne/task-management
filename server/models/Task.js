@@ -2,7 +2,7 @@
 // it stores the relevant properties for a task such as name, description, and due date.
 // we currently store an id field so that we may eventually translate this to a longer-term storage system. 
 // id is an integer
-// name, description, and due are strings.  due will be of the format YYYY/MM/DD
+// name, description, and due are strings.  due will be of the format YYYY-MM-DD
 
 module.exports.Task = class Task {
     constructor(_name, _description, _due){
