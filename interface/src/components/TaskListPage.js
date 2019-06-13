@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap'
+import { Button, Container, Row, Col } from 'react-bootstrap'
 import moment from 'moment';
 
 class TaskListPage extends React.Component {
@@ -21,39 +21,59 @@ class TaskListPage extends React.Component {
     }
 }
 
+const containerStyle = {
+    display: 'flex',
+    outline: 'solid',
+    margin: '0 auto',
+    width: '100%'
+};
+
 class TaskListView extends React.Component {
     render(){
         const task = this.props.task;
         const title = task.name;
-        const description = task.description;
-        if(description.length > 70){
-            description = description.substring(0, 70) + '...';
+        let description = task.description;
+        if(description.length > 42){
+            description = description.substring(0, 42) + '...';
         }
         const due = task.due;
+        const completed = task.completed;
 
-        return <Container>
+        return <Container style={containerStyle}>
             <Row>
-                <Col>{/*This is where the completed or remove buttons go*/}</Col>
+                <Col><TaskStatusButtons completed={completed}></TaskStatusButtons></Col>
                 <Col>{title}</Col>
                 <Col>{description}</Col>
                 <Col>{due}</Col>
                 <Col>
-                    <TaskStatus due={due}/>
+                    <TaskStatus completed={completed} due={due}/>
                 </Col>
             </Row>
         </Container>
     }
 }
 
+class TaskStatusButtons extends React.Component {
+    render() {
+        const completed = this.props.completed;
+
+        return <div>
+                <Button>Complete</Button>
+                <Button>Remove</Button>
+            </div>
+    }
+}
+
 class TaskStatus extends React.Component {
     render() {
+        const completed = this.props.completed;
         const due = this.props.due;
         
         let d1 = moment();
         let d2 = moment(due).format('M/D/YYYY');
 
         let overdue = moment(d2).isBefore(d1);
-        let dueSoon = moment(d2).equals(d1) || moment(d1.add(1, 'day')).equals(d2);
+        let dueSoon = moment(d2) === d1 || moment(d1.add(1, 'day')) === d2;
 
         let ret = '';
         if(overdue){
@@ -63,8 +83,12 @@ class TaskStatus extends React.Component {
             ret = 'DUE SOON';
         }
         else{
-            // TODO: Add a 'Due in X Days' display???
+            // TODO: Add a 'Due in X Days' display??? always just get how many days are left, if it's negative, overdue, if it's 0 or 1, due soon, else show how many days.
             ret = '';
+        }
+
+        if(completed){
+            ret = 'Done!'
         }
 
         return <b>{ret}</b>
