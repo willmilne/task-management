@@ -29,7 +29,7 @@ class TaskPage extends React.Component {
 
     render() {
         const task = this.props.task;
-        const title = (task && task.title) || 'Enter Title';
+        const title = (task && task.name) || 'Enter Title';
         const description = (task && task.description) || 'Enter Description';
         const due = (task && task.due) || 'No due date selected';
         return (
@@ -53,7 +53,7 @@ class TaskPage extends React.Component {
                 <Button>Task Completed!</Button>
                 <Button>Delete Task</Button>
                 <br></br>
-                <Button>Back to tasks</Button>
+                <Button onClick={this.props.backToTasks}>Back to tasks</Button>
                 <Button>Save Changes</Button>
             </div>
         );

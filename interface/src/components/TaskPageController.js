@@ -24,12 +24,28 @@ class TaskPageController extends React.Component{
             error: false
         }
 
-        this.clickedTask = this.clickedTask.bind(this);
+        this.taskSelected = this.taskSelected.bind(this);
+        this.backToTasks = this.backToTasks.bind(this);
+        this.newTask = this.newTask.bind(this);
     }
 
-    clickedTask(id){
-        console.log('HEY');
-        this.setState({selectedTask: this.state.tasks[id]});
+    taskSelected(e, row) {
+        this.setState({
+            selectedTask: this.state.tasks[row.getData().id]
+        });
+    }
+
+    backToTasks(){
+        this.setState({
+            selectedTask: false
+        });
+    }
+
+    newTask(){
+        console.log('CLICKED!');
+        this.setState({
+            selectedTask: {}
+        });
     }
 
     componentDidMount(){
@@ -49,8 +65,8 @@ class TaskPageController extends React.Component{
     render(){
         return(
             <div>
-                {this.state.selectedTask && <TaskPage task={this.state.selectedTask} />}
-                {!this.state.selectedTask && <TaskListPage clickedTask={this.clickedTask} taskList={this.state.tasks}/>}
+                {this.state.selectedTask && <TaskPage backToTasks={this.backToTasks} task={this.state.selectedTask} />}
+                {!this.state.selectedTask && <TaskListPage newTask={this.newTask} taskSelected={this.taskSelected} taskList={this.state.tasks}/>}
             </div>
         )
     }
