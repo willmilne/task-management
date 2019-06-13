@@ -2,24 +2,45 @@ import React from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap'
 import moment from 'moment';
 
+import 'react-tabulator/lib/styles.css';
+import 'react-tabulator/lib/css/tabulator.min.css';
+import { ReactTabulator } from 'react-tabulator';
+
 class TaskListPage extends React.Component {
     constructor(props){
         super(props);
     }
 
+    createColumns() {
+        let columns = [
+            { title: 'Completed?', field: 'completed', width: 100},
+            { title: 'Title', field: 'name', width: 150 },
+            { title: 'Description', field: 'description', width: 450 },
+            { title: 'Due', field: 'due', width: 150},
+        ]
+
+        return columns;
+    }
+
     render() {
         const taskList = this.props.taskList;
+
+        let taskArray = [];
+        for(var k in taskList){
+            taskArray.push(taskList[k]);
+        }
 
         return(
             <div>
                 Task List
                 <Button>Add Task</Button>
                 <Button>Filter Tasks</Button>
-                {
+                <ReactTabulator columns={this.createColumns()} data={taskArray} options={[]} />
+                {/*
                     Object.keys(taskList).map((key) => (
                         <TaskListView onClick={() => this.props.clickedTask(key)} key={key} task={this.props.taskList[key]}></TaskListView>
                     ))
-                }
+                    */}
             </div>
         );
     }
