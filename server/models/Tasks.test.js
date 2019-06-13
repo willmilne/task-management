@@ -33,6 +33,9 @@ describe('tasks tests', () => {
             expect(expected).to.deep.equal(tasks.list);
         });
 
+        // I recognize that this is not fully a unit test - because it relies on removeTask as part of the sequence.  
+        // I have found that writing automated tests for sequences that could produce unexpected behaviors is 
+        // also quite useful.
         it('should add multiple new tasks and give them sequential ids, even when a task is removed', () => {
             let tasks = new Tasks();
             let task = new Task('name','description', '6/23/2019');
@@ -170,19 +173,40 @@ describe('tasks tests', () => {
 
     describe('getTask', () => {
         it('should return the task with the specified id', () => {
-            
+            let tasks = new Tasks();
+            let task = new Task('name','description', '6/23/2019');
+            tasks.addTask(task);
+            let actual = tasks.getTask(0);
+            let expected = task;
+            expect(expected).to.deep.equal(actual);
         });
         it('should return false if the specified task doesnt exist', () => {
-
+            let tasks = new Tasks();
+            let task = new Task('name','description', '6/23/2019');
+            tasks.addTask(task);
+            let actual = tasks.getTask(1023);
+            let expected = false;
+            expect(expected).to.deep.equal(false);
         });
     });
 
     describe('removeTask', () => {
         it('should remove the specified task and return true', () => {
-
+            let tasks = new Tasks();
+            let task = new Task('name','description', '6/23/2019');
+            tasks.addTask(task);
+            let actual = tasks.removeTask(0);
+            let expected = true;
+            expect(expected).to.deep.equal(true);
         });
-        it('should return false if the specified task is removed twice', () => {
-
+        it('should return false if the specified task is removed twice or expected task doesnt exist', () => {
+            let tasks = new Tasks();
+            let task = new Task('name','description', '6/23/2019');
+            tasks.addTask(task);
+            tasks.removeTask(0);
+            let actual = tasks.removeTask(0);
+            let expected = true;
+            expect(expected).to.deep.equal(true);
         });
     });
 });
