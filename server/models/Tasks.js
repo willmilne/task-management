@@ -2,6 +2,7 @@
 // tasks has a primary dictionary of all tasks, indexed by id.  
 
 let { Task } = require('./Task');
+let dateHelper = require('./../utilities/dateHelper');
 
 module.exports.Tasks = class Tasks {
     constructor(){
@@ -19,8 +20,36 @@ module.exports.Tasks = class Tasks {
         return task;
     }
 
-    getTasks(){
-        return this.list;
+    getTasks(_filterType, _today){
+        let result = {};
+        let tasks = this.list;
+        switch(_filterType){
+            // get tasks due today
+            case 0:
+                for(var task in tasks){
+                    if(task.due === _today){
+                        result[task.id] = task;
+                    }
+                }
+                return result;
+            // get tasks due tomorrow
+            case 1:
+                
+                for(var task in tasks){
+
+                }
+            // get tasks due today and tomorrow
+            case 2:
+                break;
+            // get tasks that are overdue
+            case 3: 
+                break;
+            // get tasks that are completed
+            case 4:
+                break;
+            default:
+                return this.list;
+        }
     }
 
     removeTask(_id){
