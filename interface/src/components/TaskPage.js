@@ -43,9 +43,7 @@ class TaskPage extends React.Component {
                         <Form.Control type="text" placeholder={description} />
                     </Form.Group>
                 </Form>
-                <b>
-                    Due Date
-                </b>
+                Set Due Date
                 <DatePicker
                     selected={this.state.startDate}
                     onChange={this.handleDateChange}
@@ -54,6 +52,7 @@ class TaskPage extends React.Component {
                 <Button>Task Completed!</Button>
                 <Button>Delete Task</Button>
                 <br></br>
+                <Button>Back to tasks</Button>
                 <Button>Save Changes</Button>
             </div>
         );
