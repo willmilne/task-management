@@ -28,7 +28,8 @@ class TaskPageController extends React.Component{
     componentDidMount(){
         get.tasks({}, {
             success: (_res) => {
-                this.setState({tasks: _res.tasks});
+                console.log(_res);
+                this.setState({tasks: _res});
             },
             failure: (_err) => {
                 this.setState({

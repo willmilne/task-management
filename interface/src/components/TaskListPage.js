@@ -12,8 +12,8 @@ class TaskListPage extends React.Component {
                 <Button>Add Task</Button>
                 <Button>Filter Tasks</Button>
                 {
-                    Object.keys(taskList).map((key, index) => (
-                        <TaskListView task={taskList[key]}></TaskListView>
+                    Object.keys(taskList).map((key) => (
+                        <TaskListView key={key} task={this.props.taskList[key]}></TaskListView>
                     ))
                 }
             </div>

@@ -22,7 +22,6 @@ class TaskPage extends React.Component {
     }
 
     handleDateChange(date) {
-        console.log(date);
         this.setState({
             startDate: date
         });

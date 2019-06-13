@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "local": "set PORT=4000 node index.js"
+    "local": "PORT=4000 node index.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,8 @@
     "jest": "^24.8.0",
     "mocha": "^6.1.4",
     "moment": "^2.24.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
   }
 }
