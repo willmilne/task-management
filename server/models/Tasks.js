@@ -8,22 +8,27 @@ module.exports.Tasks = class Tasks {
         this.list = {};
     }
 
-    addTask(_name, _description, _due){
-        let id = Object.keys(this.list).length;
-        this.list[id] = new Task(_name, _description, _due);
+    addTask(_task){
+        let id = Object.keys(this.list).length; // using the length of the list would give us a unique id if tasks couldnt be removed.  Since they can, we need to do something else.
+        _task.id = id;
+        this.list[id] = _task;
     }
 
-    editTask(_id, _name, _description, _due){
+    getTask(_id){
         let task = this.list[_id];
-        task.update(_name, _description, _due);
+        return task;
     }
 
-    setTaskCompleted(_id, _value){
-        let task = this.list[_id];
-        task.completed = _value;
+    getTasks(){
+        return this.list;
     }
 
     removeTask(_id){
-        delete this.list[_id];
+        if(this.list[_id]){
+            delete this.list[_id];
+            return true;
+        }
+
+        return false;
     }
 }

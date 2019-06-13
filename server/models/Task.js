@@ -5,23 +5,18 @@
 // name, description, and due are strings.  due will be of the format YYYY/MM/DD
 
 module.exports.Task = class Task {
-    constructor(_id, _name, _description, _due){
-        this.id = _id;
+    constructor(_name, _description, _due){
+        this.id = -1; // initializes to -1 so we know if something is wrong.
         this.name = _name;
         this.description = _description;
         this.due = _due;
-        this.created = new Date();
-        this.modified = this.created;
         this.completed = false;
     };
 
-    update(_name, _description, _due){
-        if(this.name !== _name || this.description !== _description || this.due !== _due){
-            this.name = _name;
-            this.description = _description;
-            this.due = _due;
-    
-            this.modified = new Date.now();
-        }
+    update(_name, _description, _due, _completed){
+        this.name = _name;
+        this.description = _description;
+        this.due = _due;
+        this.completed = _completed;
     }
 };
