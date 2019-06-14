@@ -43,7 +43,6 @@ class TaskListPage extends React.Component {
     }
 
     setFilters(filterId){
-        console.log('hi?', filterId);
         get.filteredTasks(filterId, {}, {
             success: (_res) => {
                 this.props.updatedTasks(_res);

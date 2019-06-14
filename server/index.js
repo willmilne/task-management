@@ -9,7 +9,6 @@ var port = process.env.PORT || 8080;
 
 //app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
-console.log('creating tasks');
 let tasks = new Tasks();
 
 app.use(bodyParser.urlencoded({
@@ -19,6 +18,5 @@ app.use(bodyParser.urlencoded({
 require('./routes.js')(app, tasks);
 
 app.listen(port);
-console.log('App listening on port ' + port);
 
 module.exports = app;

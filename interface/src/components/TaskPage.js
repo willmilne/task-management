@@ -106,9 +106,7 @@ class TaskPage extends React.Component {
     }
 
     deleteTask(){
-        console.log('heyhey', this.state.id);
         if (this.state.id !== -1) {
-            console.log('deleting', this.state.id);
             del.task(this.state.id, {
                 id: this.state.id
             }, {

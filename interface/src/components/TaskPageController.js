@@ -32,7 +32,6 @@ class TaskPageController extends React.Component{
 
     // when a new task is saved, we're taken back to the list page and given all of the tasks again.
     savedNewTask(_res){
-        console.log(_res);
         this.setState({
             tasks: _res
         });
