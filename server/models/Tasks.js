@@ -8,6 +8,7 @@ module.exports.Tasks = class Tasks {
     constructor() {
         this.list = {};
         this.nextId = 1; // this is 1-indexed because 0 evaluates to false and was causing a bug where the initial task couldnt be updated
+        this.lastStatusUpdate = undefined;
     }
 
     addTask(_task) {
@@ -84,5 +85,35 @@ module.exports.Tasks = class Tasks {
         }
 
         return false;
+    }
+
+    // TODO: Make presorted buckets of tasks that match these parameters
+    // so that the filtering is O(1) on the get
+    updateAllStatuses(_today){
+        for(var k in this.list){
+            this.updateStatus(this.list[k], _today);
+        }
+
+        this.lastStatusUpdate = _today;
+    }
+
+    updateStatus(_task, _today){
+        let tomorrow = dateHelper.getNextDay(_today);
+        if(_task.completed){
+            _task.status = 'completed';
+            return;
+        }
+        else if(_task.due === _today || _task.due === tomorrow){
+            _task.status = 'dangerous';
+            return;
+        }
+        else if(dateHelper.isBefore(_task.due, _today)){
+            _task.status = 'overdue';
+            return;
+        }
+        else{
+            _task.status = '';
+            return;
+        }
     }
 }

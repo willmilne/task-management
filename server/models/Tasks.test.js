@@ -266,7 +266,7 @@ describe('tasks tests', () => {
             expect(task10.status).to.equal('dangerous');
             expect(task11.status).to.equal('completed');
             expect(task12.status).to.equal('');
-            expect(tasks.lastUpdated).to.equal('6/13/2019');
+            expect(tasks.lastStatusUpdate).to.equal('6/13/2019');
         });
 
         it('should mark the status of a single task correctly when that task is added', () => {
