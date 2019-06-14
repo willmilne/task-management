@@ -137,11 +137,11 @@ class TaskPage extends React.Component {
                 <Form>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Task Name</Form.Label>
-                        <Form.Control id="taskTitle" type="text" placeholder={title} onChange={this.handleNameChange} />
+                        <Form.Control type="text" placeholder={title} onChange={this.handleNameChange} />
                     </Form.Group>
                     <Form.Group controlId="formDescription">
                         <Form.Label>Task Description</Form.Label>
-                        <Form.Control id="taskDescription" type="text" placeholder={description} onChange={this.handleDescriptionChange} />
+                        <Form.Control type="text" placeholder={description} onChange={this.handleDescriptionChange} />
                     </Form.Group>
                 </Form>
                 Set Due Date

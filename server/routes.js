@@ -6,13 +6,16 @@ const moment = require('moment');
 
 module.exports = (app, tasks) => {
     app.get('/tasks', (req, res) => {
+        console.log(typeof req.query.filter);
+        let filter = parseInt(req.query.filter);
         console.log('getting tasks');
-        res.json(tasks.list);
-    });
-
-    app.get('/tasks/:task_id', (req, res) => {
-        console.log('returning specific task');
-
+        let tasksToSend;
+        if(filter !== -1){
+            tasksToSend = tasks.getTasks(filter, moment(new Date()).format('M/D/YYYY'));
+        } else {
+            tasksToSend = tasks.getTasks();
+        }
+        res.json(tasksToSend);
     });
 
     app.post('/tasks', (req, res) => {
