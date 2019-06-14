@@ -29,10 +29,10 @@ module.exports = (app, tasks) => {
         let toUpdate = tasks.getTask(id);
         if(toUpdate){
             toUpdate.update(_req.body.name, _req.body.description, moment(_req.body.due, 'M/D/YYYY').format('M/D/YYYY'), _req.body.completed);
-            res.json(tasks.list);
+            _res.json(tasks.list);
         }
         else{
-            res.json({error: 'Failed to update id ' + id});
+            _res.json({error: 'Failed to update id ' + id});
         }
     });
 }
