@@ -132,6 +132,7 @@ class TaskPage extends React.Component {
         const due = (task && task.due) || 'No due date selected';
         return (
             <div>
+                <Button onClick={this.props.backToTasks}>Back to tasks</Button>
                 <Form>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Task Name</Form.Label>
@@ -152,7 +153,6 @@ class TaskPage extends React.Component {
                 <Button onClick={this.completed} disabled={this.state.completedButtonDisabled}>Task Completed!</Button>
                 <Button onClick={this.openDeleteModal} disabled={this.state.id === -1}>Delete Task</Button>
                 <br></br>
-                <Button onClick={this.props.backToTasks}>Back to tasks</Button>
                 <Button onClick={this.saveTask}>Save Changes</Button>
                 <Modal isOpen={this.state.deleteModalIsOpen} onRequestClose={this.closeDeleteModal} contentLabel={"Delete this task?"}>
                     <div>

@@ -59,8 +59,29 @@ class TaskListPage extends React.Component {
             { title: 'Title', field: 'name', width: 150 },
             { title: 'Description', field: 'description' },
             { title: 'Due', field: 'due', width: 150 },
-            { title: 'Status', field: 'status', width: 150},
-        ]
+            { 
+                title: 'Status', 
+                field: 'status', 
+                width: 150, 
+                formatter: (cell, formatterParams) => {
+                    let cellValue = cell.getValue();
+                    if(cellValue === 'overdue'){
+                        cell.getRow().getElement().style.backgroundColor = "#ff9999";
+                        
+                        return cellValue;
+                    }
+                    else if(cellValue === 'completed'){
+                        cell.getRow().getElement().style.backgroundColor = "#66cccc";
+                        return cellValue;
+                    }
+                    else if(cellValue === 'upcoming'){
+                        cell.getRow().getElement().style.backgroundColor = "#ffffcc";
+                        return cellValue;
+                    }
+                    return cellValue;
+                }
+            }
+        ];
 
         return columns;
     }
