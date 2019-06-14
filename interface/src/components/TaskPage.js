@@ -106,9 +106,12 @@ class TaskPage extends React.Component {
     }
 
     deleteTask(){
-        if (this.state.id === -1) {
-            // we are saving a new task, not updating an old one
-            del.task(this.state.id, {}, {
+        console.log('heyhey', this.state.id);
+        if (this.state.id !== -1) {
+            console.log('deleting', this.state.id);
+            del.task(this.state.id, {
+                id: this.state.id
+            }, {
                 success: (_res) => {
                     this.props.savedNewTask(_res);
                 },

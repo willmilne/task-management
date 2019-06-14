@@ -23,9 +23,6 @@ module.exports = (app, tasks) => {
 
     app.put('/tasks/:id', (_req, _res) => {
         var id = _req.body.id;
-        console.log(id);
-        console.log(tasks.getTasks());
-        console.log('completed: ' + _req.body.completed);
 
         let toUpdate = tasks.getTask(id);
         if(toUpdate){
@@ -36,4 +33,14 @@ module.exports = (app, tasks) => {
             _res.json({error: 'Failed to update id ' + id});
         }
     });
+
+    app.delete('/tasks/:id', (_req, _res) => {
+        console.log('deleting');
+        var id = _req.body.id;
+        console.log(id);
+
+        tasks.removeTask(id);
+
+        _res.json(tasks.list);
+    })
 }
