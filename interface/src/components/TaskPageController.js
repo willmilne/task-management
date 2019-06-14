@@ -33,8 +33,10 @@ class TaskPageController extends React.Component{
     // when a new task is saved, we're taken back to the list page and given all of the tasks again.
     savedNewTask(_res){
         this.setState({
-            tasks: _res,
-            taskSelected: false
+            tasks: _res
+        });
+        this.setState({
+            selectedTask: false
         });
     }
 
@@ -51,7 +53,6 @@ class TaskPageController extends React.Component{
     }
 
     newTask(){
-        console.log('CLICKED!');
         this.setState({
             selectedTask: {}
         });
@@ -60,7 +61,6 @@ class TaskPageController extends React.Component{
     componentDidMount(){
         get.tasks({}, {
             success: (_res) => {
-                console.log(_res);
                 this.setState({tasks: _res});
             },
             failure: (_err) => {

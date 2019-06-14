@@ -11,14 +11,16 @@ class TaskPage extends React.Component {
     constructor(props) {
         super(props);
         let dueDate;
+        console.log('TASK ID', this.props.task.id);
         if(this.props.task && this.props.task.due){
             dueDate = this.props.task.due;
             dueDate = new Date(dueDate);
         }
         this.state = {
             selectedDate: dueDate || new Date(),
-            id: this.props.task.id || -1
+            id: this.props.task && this.props.task.id || -1
         };
+        console.log('STATE ID', this.state.id);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -27,12 +29,12 @@ class TaskPage extends React.Component {
 
     saveTask(){
         let task = {
+            id: this.state.id,
             name: this.state.name,
             description: this.state.description,
             due: moment(this.state.selectedDate).format('M/D/YYYY')
         };
         if(this.state.id === -1){
-            console.log('saving!');
             // we are saving a new task, not updating an old one
             post.task(task, {
                 success: (_res) => {
@@ -44,8 +46,16 @@ class TaskPage extends React.Component {
                 }
             });
         } else {
+            console.log('UPDATING ' + this.state.id);
             // we are updating an old task
+            put.task(this.state.id, task, {
+                success: (_res) => {
+                    this.props.savedNewTask(_res); //TODO: Rename to updatedTaskList
+                },
+                failure: (_err) => {
 
+                }
+            })
         }
 
     }

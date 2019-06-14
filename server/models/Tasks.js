@@ -7,7 +7,7 @@ let dateHelper = require('./../utilities/dateHelper');
 module.exports.Tasks = class Tasks {
     constructor() {
         this.list = {};
-        this.nextId = 0;
+        this.nextId = 1; // this is 1-indexed because 0 evaluates to false and was causing a bug where the initial task couldnt be updated
     }
 
     addTask(_task) {

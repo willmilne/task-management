@@ -20,4 +20,19 @@ module.exports = (app, tasks) => {
         let result = tasks.addTask(task);
         res.json(tasks.list);
     });
+
+    app.put('/tasks/:id', (_req, _res) => {
+        var id = _req.body.id;
+        console.log(id);
+        console.log(tasks.getTasks());
+
+        let toUpdate = tasks.getTask(id);
+        if(toUpdate){
+            toUpdate.update(_req.body.name, _req.body.description, moment(_req.body.due, 'M/D/YYYY').format('M/D/YYYY'), _req.body.completed);
+            res.json(tasks.list);
+        }
+        else{
+            res.json({error: 'Failed to update id ' + id});
+        }
+    });
 }
