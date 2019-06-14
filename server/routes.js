@@ -6,9 +6,7 @@ const moment = require('moment');
 
 module.exports = (app, tasks) => {
     app.get('/tasks', (req, res) => {
-        console.log(typeof req.query.filter);
         let filter = parseInt(req.query.filter);
-        console.log('getting tasks');
         let tasksToSend;
         if(filter !== -1){
             tasksToSend = tasks.getTasks(filter, moment(new Date()).format('M/D/YYYY'));
@@ -38,12 +36,8 @@ module.exports = (app, tasks) => {
     });
 
     app.delete('/tasks/:id', (_req, _res) => {
-        console.log('deleting');
         var id = _req.body.id;
-        console.log(id);
-
         tasks.removeTask(id);
-
         _res.json(tasks.list);
     })
 }
