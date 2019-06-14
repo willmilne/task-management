@@ -210,4 +210,77 @@ describe('tasks tests', () => {
             expect(expected).to.deep.equal(true);
         });
     });
+
+    // status is a new field to be used for easier display of 
+    // completed, 'dangerous', or overdue
+    // dangerous is today or tomorrow
+    // overdue is overdue
+    // completed is completed
+    describe('updateStatus', () => {
+        let today = '6/12/2019';
+        let task0 = new Task('task 0', 'weird zero', '1/1/1970');
+        let task1 = new Task('task 1', 'it is a task', '6/10/2019');
+        let task2 = new Task('task 2', 'it is a task', '6/10/2019');
+        let task3 = new Task('task 3', 'it is a task', '6/11/2019');
+        let task4 = new Task('task 4', 'it is a task', '6/11/2019');
+        let task5 = new Task('task 5', 'it is a task', '6/12/2019');
+        let task6 = new Task('task 6', 'it is a task', '6/12/2019');
+        let task7 = new Task('task 7', 'it is a task', '6/13/2019');
+        let task8 = new Task('task 8', 'it is a task', '6/13/2019');
+        let task9 = new Task('task 9', 'it is a task', '6/14/2019');
+        let task10 = new Task('task 10', 'it is a task', '6/14/2019');
+        let task11 = new Task('task 11', 'it is a task', '12/13/2019');
+        let task12 = new Task('task 12', 'it is a task', '12/13/2019');
+
+        task0.completed = true;
+        task1.completed = true;
+        task11.completed = true;
+        task8.completed = true;
+
+        let tasks = new Tasks();
+        tasks.addTask(task0);
+        tasks.addTask(task1);
+        tasks.addTask(task2);
+        tasks.addTask(task3);
+        tasks.addTask(task4);
+        tasks.addTask(task5);
+        tasks.addTask(task6);
+        tasks.addTask(task7);
+        tasks.addTask(task8);
+        tasks.addTask(task9);
+        tasks.addTask(task10);
+        tasks.addTask(task11);
+        tasks.addTask(task12);
+        it('should mark the status of each task correctly', () => {
+            tasks.updateAllStatuses('6/13/2019');
+            expect(task0.status).to.equal('completed');
+            expect(task1.status).to.equal('completed');
+            expect(task2.status).to.equal('overdue');
+            expect(task3.status).to.equal('overdue');
+            expect(task4.status).to.equal('overdue');
+            expect(task5.status).to.equal('overdue');
+            expect(task6.status).to.equal('overdue');
+            expect(task7.status).to.equal('dangerous');
+            expect(task8.status).to.equal('completed');
+            expect(task9.status).to.equal('dangerous');
+            expect(task10.status).to.equal('dangerous');
+            expect(task11.status).to.equal('completed');
+            expect(task12.status).to.equal('');
+            expect(tasks.lastUpdated).to.equal('6/13/2019');
+        });
+
+        it('should mark the status of a single task correctly when that task is added', () => {
+            task0.status = undefined;
+            tasks.updateStatus(task0, '6/13/2019');
+            expect(task0.status).to.equal('completed');
+
+            task4.status = undefined;
+            tasks.updateStatus(task4, '6/13/2019');
+            expect(task4.status).to.equal('overdue');
+
+            task9.status = undefined;
+            tasks.updateStatus(task9, '6/13/2019');
+            expect(task9.status).to.equal('dangerous');
+        });
+    });
 });
