@@ -104,7 +104,7 @@ module.exports.Tasks = class Tasks {
             return;
         }
         else if(_task.due === _today || _task.due === tomorrow){
-            _task.status = 'dangerous';
+            _task.status = 'upcoming';
             return;
         }
         else if(dateHelper.isBefore(_task.due, _today)){

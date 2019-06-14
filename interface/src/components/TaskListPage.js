@@ -59,7 +59,7 @@ class TaskListPage extends React.Component {
             { title: 'Title', field: 'name', width: 150 },
             { title: 'Description', field: 'description' },
             { title: 'Due', field: 'due', width: 150 },
-            //{ title: 'Completed?', field: 'completed', width: 100},
+            { title: 'Status', field: 'status', width: 150},
         ]
 
         return columns;

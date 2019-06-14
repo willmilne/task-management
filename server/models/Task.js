@@ -11,6 +11,7 @@ module.exports.Task = class Task {
         this.description = _description;
         this.due = _due;
         this.completed = false;
+        this.status = undefined;
     };
 
     update(_name, _description, _due, _completed){

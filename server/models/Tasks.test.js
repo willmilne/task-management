@@ -212,8 +212,8 @@ describe('tasks tests', () => {
     });
 
     // status is a new field to be used for easier display of 
-    // completed, 'dangerous', or overdue
-    // dangerous is today or tomorrow
+    // completed, 'upcoming', or overdue
+    // upcoming is today or tomorrow
     // overdue is overdue
     // completed is completed
     describe('updateStatus', () => {
@@ -260,10 +260,10 @@ describe('tasks tests', () => {
             expect(task4.status).to.equal('overdue');
             expect(task5.status).to.equal('overdue');
             expect(task6.status).to.equal('overdue');
-            expect(task7.status).to.equal('dangerous');
+            expect(task7.status).to.equal('upcoming');
             expect(task8.status).to.equal('completed');
-            expect(task9.status).to.equal('dangerous');
-            expect(task10.status).to.equal('dangerous');
+            expect(task9.status).to.equal('upcoming');
+            expect(task10.status).to.equal('upcoming');
             expect(task11.status).to.equal('completed');
             expect(task12.status).to.equal('');
             expect(tasks.lastStatusUpdate).to.equal('6/13/2019');
@@ -280,7 +280,7 @@ describe('tasks tests', () => {
 
             task9.status = undefined;
             tasks.updateStatus(task9, '6/13/2019');
-            expect(task9.status).to.equal('dangerous');
+            expect(task9.status).to.equal('upcoming');
         });
     });
 });
