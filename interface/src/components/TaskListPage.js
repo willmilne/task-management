@@ -17,11 +17,11 @@ class TaskListPage extends React.Component {
 
     createColumns() {
         let columns = [
-            //{ title: 'Completed?', field: 'completed', width: 100},
-            { title: 'ID', field: 'id' },
+            { title: 'ID', field: 'id', width: 100 },
             { title: 'Title', field: 'name', width: 150 },
             { title: 'Description', field: 'description' },
             { title: 'Due', field: 'due', width: 150 },
+            //{ title: 'Completed?', field: 'completed', width: 100},
         ]
 
         return columns;

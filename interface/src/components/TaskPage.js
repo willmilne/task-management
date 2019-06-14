@@ -11,20 +11,31 @@ class TaskPage extends React.Component {
     constructor(props) {
         super(props);
         let dueDate;
-        console.log('TASK ID', this.props.task.id);
         if(this.props.task && this.props.task.due){
             dueDate = this.props.task.due;
             dueDate = new Date(dueDate);
         }
         this.state = {
             selectedDate: dueDate || new Date(),
-            id: this.props.task && this.props.task.id || -1
+            id: this.props.task && this.props.task.id || -1,
+            completed: this.props.task.completed || false,
+            name: this.props.task.name,
+            description: this.props.task.description
         };
-        console.log('STATE ID', this.state.id);
+
+        if(this.state.id === -1 || this.state.completed !== false){
+            this.state.completedButtonDisabled = true;
+        }
+        else {
+            this.state.completedButtonDisabled = false;
+        }
+        console.log('initial completed state is ' + this.state.completed);
+        console.log('initial id state is ' + this.state.id);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.saveTask = this.saveTask.bind(this);
+        this.completed = this.completed.bind(this);
     }
 
     saveTask(){
@@ -32,13 +43,13 @@ class TaskPage extends React.Component {
             id: this.state.id,
             name: this.state.name,
             description: this.state.description,
-            due: moment(this.state.selectedDate).format('M/D/YYYY')
+            due: moment(this.state.selectedDate).format('M/D/YYYY'),
+            completed: this.state.completed
         };
         if(this.state.id === -1){
             // we are saving a new task, not updating an old one
             post.task(task, {
                 success: (_res) => {
-                    console.log('save success');
                     this.props.savedNewTask(_res);
                 },
                 failure: (_err) => {
@@ -46,7 +57,6 @@ class TaskPage extends React.Component {
                 }
             });
         } else {
-            console.log('UPDATING ' + this.state.id);
             // we are updating an old task
             put.task(this.state.id, task, {
                 success: (_res) => {
@@ -58,6 +68,15 @@ class TaskPage extends React.Component {
             })
         }
 
+    }
+
+    completed(){
+        this.setState({
+            completed: true
+        }, () => {
+            this.saveTask();
+        });
+        //this.saveTask());
     }
 
     handleNameChange(event){
@@ -102,7 +121,8 @@ class TaskPage extends React.Component {
                     onChange={this.handleDateChange}
                 />
                 <br></br>
-                <Button>Task Completed!</Button>
+                {this.state.completed && <b>Great job finishing this task!<br></br></b>}
+                <Button onClick={this.completed} disabled={this.state.completedButtonDisabled}>Task Completed!</Button>
                 <Button>Delete Task</Button>
                 <br></br>
                 <Button onClick={this.props.backToTasks}>Back to tasks</Button>

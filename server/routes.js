@@ -25,10 +25,11 @@ module.exports = (app, tasks) => {
         var id = _req.body.id;
         console.log(id);
         console.log(tasks.getTasks());
+        console.log('completed: ' + _req.body.completed);
 
         let toUpdate = tasks.getTask(id);
         if(toUpdate){
-            toUpdate.update(_req.body.name, _req.body.description, moment(_req.body.due, 'M/D/YYYY').format('M/D/YYYY'), _req.body.completed);
+            toUpdate.update(_req.body.name, _req.body.description, moment(_req.body.due, 'M/D/YYYY').format('M/D/YYYY'), _req.body.completed === 'true');
             _res.json(tasks.list);
         }
         else{
