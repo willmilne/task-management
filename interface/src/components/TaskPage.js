@@ -140,10 +140,10 @@ class TaskPage extends React.Component {
                     </Form.Group>
                     <Form.Group controlId="formDescription">
                         <Form.Label>Task Description</Form.Label>
-                        <Form.Control type="text" placeholder={description} onChange={this.handleDescriptionChange} />
+                        <Form.Control as="textarea" rows="5"  type="text" placeholder={description} onChange={this.handleDescriptionChange} />
                     </Form.Group>
                 </Form>
-                Set Due Date
+                Set Due Date<br></br>
                 <DatePicker id="taskDue"
                     selected={this.state.selectedDate}
                     onChange={this.handleDateChange}

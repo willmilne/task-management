@@ -97,7 +97,7 @@ class TaskListPage extends React.Component {
 
         return (
             <div>
-                Task List
+                <h1>Task List</h1>
                 <Button onClick={this.props.newTask}>Add Task</Button>
                 <FilterButtons changeFilters={this.setFilters}></FilterButtons>
                 <ReactTabulator columns={this.createColumns()} data={taskArray} options={[]} rowClick={this.props.taskSelected} />
