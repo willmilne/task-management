@@ -15,10 +15,11 @@ const handleResponse = (_res, _error, _callbacks) => {
 };
 
 const postRequest = (_postType, _data, _callbacks) => {
+    console.log('posting ', _data);
     $.ajax({
         type: 'POST',
         url: serverUrl + _postType,
-        data: 'data=' + JSON.stringify(_data),
+        data: _data,
         success: (_res) => {
             handleResponse(_res, _res.error, _callbacks);
         }, 

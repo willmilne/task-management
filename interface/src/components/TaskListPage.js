@@ -7,7 +7,7 @@ import 'react-tabulator/lib/css/tabulator.min.css';
 import { ReactTabulator } from 'react-tabulator';
 
 class TaskListPage extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -18,9 +18,10 @@ class TaskListPage extends React.Component {
     createColumns() {
         let columns = [
             //{ title: 'Completed?', field: 'completed', width: 100},
+            { title: 'ID', field: 'id' },
             { title: 'Title', field: 'name', width: 150 },
             { title: 'Description', field: 'description' },
-            { title: 'Due', field: 'due', width: 150},
+            { title: 'Due', field: 'due', width: 150 },
         ]
 
         return columns;
@@ -30,11 +31,11 @@ class TaskListPage extends React.Component {
         const taskList = this.props.taskList;
 
         let taskArray = [];
-        for(var k in taskList){
+        for (var k in taskList) {
             taskArray.push(taskList[k]);
         }
 
-        return(
+        return (
             <div>
                 Task List
                 <Button onClick={this.props.newTask}>Add Task</Button>

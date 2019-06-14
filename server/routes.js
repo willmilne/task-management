@@ -1,6 +1,9 @@
 // routes.js contains all of the REST routes required for the application.
 // as this begins to grow beyond tasks, it could be separated out to taskRoutes and workerRoutes, etc.
 
+const { Task } = require('./models/Task');
+const moment = require('moment');
+
 module.exports = (app, tasks) => {
     app.get('/tasks', (req, res) => {
         console.log('getting tasks');
@@ -13,9 +16,8 @@ module.exports = (app, tasks) => {
     });
 
     app.post('/tasks', (req, res) => {
-        console.log('app.post');
-        console.log(req.body);
-        tasks.addTask(req.body.name, req.body.description, Date.parse(req.body.due));
-        res.json(tasks);
+        let task = new Task(req.body.name, req.body.description, moment(req.body.due, 'M/D/YYYY').format('M/D/YYYY'));
+        let result = tasks.addTask(task);
+        res.json(tasks.list);
     });
 }

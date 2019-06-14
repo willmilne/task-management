@@ -27,6 +27,15 @@ class TaskPageController extends React.Component{
         this.taskSelected = this.taskSelected.bind(this);
         this.backToTasks = this.backToTasks.bind(this);
         this.newTask = this.newTask.bind(this);
+        this.savedNewTask = this.savedNewTask.bind(this);
+    }
+
+    // when a new task is saved, we're taken back to the list page and given all of the tasks again.
+    savedNewTask(_res){
+        this.setState({
+            tasks: _res,
+            taskSelected: false
+        });
     }
 
     taskSelected(e, row) {
@@ -65,7 +74,7 @@ class TaskPageController extends React.Component{
     render(){
         return(
             <div>
-                {this.state.selectedTask && <TaskPage backToTasks={this.backToTasks} task={this.state.selectedTask} />}
+                {this.state.selectedTask && <TaskPage savedNewTask={this.savedNewTask} backToTasks={this.backToTasks} task={this.state.selectedTask} />}
                 {!this.state.selectedTask && <TaskListPage newTask={this.newTask} taskSelected={this.taskSelected} taskList={this.state.tasks}/>}
             </div>
         )

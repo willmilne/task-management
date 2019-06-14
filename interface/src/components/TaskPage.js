@@ -16,18 +16,60 @@ class TaskPage extends React.Component {
             dueDate = new Date(dueDate);
         }
         this.state = {
-            startDate: dueDate || new Date()
+            selectedDate: dueDate || new Date(),
+            id: this.props.task.id || -1
         };
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.saveTask = this.saveTask.bind(this);
+    }
+
+    saveTask(){
+        let task = {
+            name: this.state.name,
+            description: this.state.description,
+            due: moment(this.state.selectedDate).format('M/D/YYYY')
+        };
+        if(this.state.id === -1){
+            console.log('saving!');
+            // we are saving a new task, not updating an old one
+            post.task(task, {
+                success: (_res) => {
+                    console.log('save success');
+                    this.props.savedNewTask(_res);
+                },
+                failure: (_err) => {
+
+                }
+            });
+        } else {
+            // we are updating an old task
+
+        }
+
+    }
+
+    handleNameChange(event){
+        this.setState({
+            name: event.target.value
+        });
+    }
+
+    handleDescriptionChange(event){
+        this.setState({
+            description: event.target.value
+        });
     }
 
     handleDateChange(date) {
         this.setState({
-            startDate: date
+            selectedDate: date
         });
     }
 
     render() {
+        //todo: move this up into the state initialization
         const task = this.props.task;
         const title = (task && task.name) || 'Enter Title';
         const description = (task && task.description) || 'Enter Description';
@@ -37,16 +79,16 @@ class TaskPage extends React.Component {
                 <Form>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Task Name</Form.Label>
-                        <Form.Control type="text" placeholder={title} />
+                        <Form.Control id="taskTitle" type="text" placeholder={title} onChange={this.handleNameChange}/>
                     </Form.Group>
                     <Form.Group controlId="formDescription">
                         <Form.Label>Task Description</Form.Label>
-                        <Form.Control type="text" placeholder={description} />
+                        <Form.Control id="taskDescription" type="text" placeholder={description} onChange={this.handleDescriptionChange}/>
                     </Form.Group>
                 </Form>
                 Set Due Date
-                <DatePicker
-                    selected={this.state.startDate}
+                <DatePicker id="taskDue"
+                    selected={this.state.selectedDate}
                     onChange={this.handleDateChange}
                 />
                 <br></br>
@@ -54,7 +96,7 @@ class TaskPage extends React.Component {
                 <Button>Delete Task</Button>
                 <br></br>
                 <Button onClick={this.props.backToTasks}>Back to tasks</Button>
-                <Button>Save Changes</Button>
+                <Button onClick={this.saveTask}>Save Changes</Button>
             </div>
         );
     }
