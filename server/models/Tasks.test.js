@@ -17,7 +17,7 @@ describe('tasks tests', () => {
             let tasks = new Tasks();
             let task = new Task('name','description', '6/23/2019');
             tasks.addTask(task);
-            expect({0:task}).to.deep.equal(tasks.list);
+            expect({1:task}).to.deep.equal(tasks.list);
         });
 
         it('should add multiple new tasks and give them all unique sequential ids', () => {
@@ -27,8 +27,8 @@ describe('tasks tests', () => {
             let task2 = new Task('name2', 'description2', '7/7/2018');
             tasks.addTask(task2);
             let expected = {
-                0: task, 
-                1: task2
+                1: task, 
+                2: task2
             }
             expect(expected).to.deep.equal(tasks.list);
         });
@@ -43,11 +43,11 @@ describe('tasks tests', () => {
             let task2 = new Task('name2', 'description2', '7/7/2018');
             let task3 = new Task('name3', 'description3', '9/21/2019');
             tasks.addTask(task2);
-            tasks.removeTask(1);
+            tasks.removeTask(2);
             tasks.addTask(task3);
             let expected = {
-                0: task, 
-                2: task3
+                1: task, 
+                3: task3
             }
             expect(expected).to.deep.equal(tasks.list);
         });
@@ -91,19 +91,19 @@ describe('tasks tests', () => {
 
         it('should return entire dictionary of tasks if no filter is provided', () => {
             let expected = {
-                0: task0,
-                1: task1,
-                2: task2,
-                3: task3,
-                4: task4,
-                5: task5,
-                6: task6,
-                7: task7,
-                8: task8,
-                9: task9,
-                10: task10,
-                11: task11,
-                12: task12
+                1: task0,
+                2: task1,
+                3: task2,
+                4: task3,
+                5: task4,
+                6: task5,
+                7: task6,
+                8: task7,
+                9: task8,
+                10: task9,
+                11: task10,
+                12: task11,
+                13: task12
             }
 
             let actual = tasks.getTasks();
@@ -113,8 +113,8 @@ describe('tasks tests', () => {
 
         it('should get all tasks due today if filter 0 is provided', () => {
             let expected = {
-                5: task5,
-                6: task6,
+                6: task5,
+                7: task6,
             }
 
             let actual = tasks.getTasks(0, today);
@@ -124,8 +124,8 @@ describe('tasks tests', () => {
 
         it('should get all tasks due tomorrow if filter 1 is provided', () => {
             let expected = {
-                7: task7,
-                8: task8
+                8: task7,
+                9: task8
             }
 
             let actual = tasks.getTasks(1, today);
@@ -135,10 +135,10 @@ describe('tasks tests', () => {
 
         it('should get all tasks due today and tomorrow if filter 2 is provided', () => {
             let expected = {
-                5: task5,
-                6: task6,
-                7: task7,
-                8: task8
+                6: task5,
+                7: task6,
+                8: task7,
+                9: task8
             }
 
             let actual = tasks.getTasks(2, today);
@@ -148,9 +148,9 @@ describe('tasks tests', () => {
 
         it('should get all overdue tasks if filter 3 is provided', () => {
             let expected = {
-                2: task2,
-                3: task3,
-                4: task4
+                3: task2,
+                4: task3,
+                5: task4
             }
 
             let actual = tasks.getTasks(3, today);
@@ -160,10 +160,10 @@ describe('tasks tests', () => {
 
         it('should get all completed tasks if filter 4 is provided', () => {
             let expected = {
-                0: task0,
-                1: task1,
-                8: task8,
-                11: task11
+                1: task0,
+                2: task1,
+                9: task8,
+                12: task11
             }
 
             let actual = tasks.getTasks(4);
@@ -177,7 +177,7 @@ describe('tasks tests', () => {
             let tasks = new Tasks();
             let task = new Task('name','description', '6/23/2019');
             tasks.addTask(task);
-            let actual = tasks.getTask(0);
+            let actual = tasks.getTask(1);
             let expected = task;
             expect(expected).to.deep.equal(actual);
         });
@@ -196,7 +196,7 @@ describe('tasks tests', () => {
             let tasks = new Tasks();
             let task = new Task('name','description', '6/23/2019');
             tasks.addTask(task);
-            let actual = tasks.removeTask(0);
+            let actual = tasks.removeTask(1);
             let expected = true;
             expect(expected).to.deep.equal(true);
         });
@@ -204,8 +204,8 @@ describe('tasks tests', () => {
             let tasks = new Tasks();
             let task = new Task('name','description', '6/23/2019');
             tasks.addTask(task);
-            tasks.removeTask(0);
-            let actual = tasks.removeTask(0);
+            tasks.removeTask(1);
+            let actual = tasks.removeTask(1);
             let expected = true;
             expect(expected).to.deep.equal(true);
         });

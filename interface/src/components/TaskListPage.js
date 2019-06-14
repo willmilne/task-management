@@ -68,6 +68,7 @@ class TaskListPage extends React.Component {
     render() {
         const taskList = this.props.taskList;
 
+        // Todo: the server should probably just return an array instead of a dictionary.  This probably isn't helping performance.  
         let taskArray = [];
         for (var k in taskList) {
             taskArray.push(taskList[k]);
